@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tcP_Server1 = new CT_TCPIP_Control.TCP_Server();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tcP_Server1 = new CT_TCPIP_Control.TCP_Server();
             this.SuspendLayout();
-            // 
-            // tcP_Server1
-            // 
-            this.tcP_Server1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tcP_Server1.Location = new System.Drawing.Point(13, 13);
-            this.tcP_Server1.Name = "tcP_Server1";
-            this.tcP_Server1.Size = new System.Drawing.Size(185, 100);
-            this.tcP_Server1.TabIndex = 0;
             // 
             // textBox1
             // 
@@ -47,6 +39,14 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(815, 378);
             this.textBox1.TabIndex = 1;
+            // 
+            // tcP_Server1
+            // 
+            this.tcP_Server1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tcP_Server1.Location = new System.Drawing.Point(13, 13);
+            this.tcP_Server1.Name = "tcP_Server1";
+            this.tcP_Server1.Size = new System.Drawing.Size(185, 100);
+            this.tcP_Server1.TabIndex = 0;
             // 
             // Form1
             // 

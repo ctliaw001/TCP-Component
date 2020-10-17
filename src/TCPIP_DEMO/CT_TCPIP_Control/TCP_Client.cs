@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace CT_TCPIP_Control
 {
-   
+    [ToolboxBitmap(@"D:\DEMO\TCPIP_DEMO\Images\Tcp_Client_Icon_2.png")]
     public partial class TCP_Client : UserControl
     {
         public TCP_Client()
