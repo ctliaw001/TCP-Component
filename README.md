@@ -1,7 +1,7 @@
 # TCP-Component
-Easy to Use TCP Component
-1.動機
-攥寫 TCP IP 的通訊程式，對於新手來說，並不友善。即使是資深的程式設計員，
+Easy to Use TCP Component<br>
+1.動機<br>
+&nbsp;&nbsp;&nbsp;&nbsp;攥寫 TCP IP 的通訊程式，對於新手來說，並不友善。即使是資深的程式設計員，
 對於不斷的需要宣告 delegate，event，以及Invoke，CallBack，Async 等，亦會
 覺得不耐煩，故已經有許多前輩寫出精采 TCP Model ，可以降低入門門檻，可以不需要處理繁雜的Callback程序，
 但依然有一些問題，大部分的模組，只適用於 Console mode，運用於 Windows Form 時，依然
