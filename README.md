@@ -24,9 +24,9 @@ In the future, a function to convert Struct' byte[] will also be provided. Users
 
 
 2.How to use in window Form <br>
-  a.)download CT_TCP_Library.dll and Ct_TCP_Conreol.dll file .
-  b.)click  mouse right on tools box and slect  "select item" of tools box .
-  c.)click browse  and select download file which is CT_TCP_Library.dll and Ct_TCP_Conreol.dll.
-  d.)you will see a new controler on tools boxs.
-  e.)pull control item to form .
-  f.)now ,can use event to send data or revice data. and do not need any Invoke or callback.
+  a.)download CT_TCP_Library.dll and Ct_TCP_Conreol.dll file .<br>
+  b.)click  mouse right on tools box and slect  "select item" of tools box .<br>
+  c.)click browse  and select download file which is CT_TCP_Library.dll and Ct_TCP_Conreol.dll.<br>
+  d.)you will see a new controler on tools boxs.<br>
+  e.)pull control item to form .<br>
+  f.)now ,can use event to send data or revice data. and do not need any Invoke or callback.<br>
