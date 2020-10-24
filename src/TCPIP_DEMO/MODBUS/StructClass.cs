@@ -10,7 +10,7 @@ namespace MODBUS
     class StructClass
     {
     }
-    [StructLayout(LayoutKind.Sequential, Pack = 4), Serializable]
+    [StructLayout(LayoutKind.Sequential, Pack = 1), Serializable]
     public struct ModbusHead
     {
         [MarshalAs(UnmanagedType.U2)]
@@ -29,11 +29,10 @@ namespace MODBUS
         [MarshalAs(UnmanagedType.U2)]
         public ushort NumberPoints;       
     }
-    public struct Response03
-    {
-        [MarshalAs(UnmanagedType.U2)]
-        public ushort StartAddress;
-        [MarshalAs(UnmanagedType.U2)]
-        public ushort NumberPoints;
+    public struct  Response03
+    {       
+        public byte Len;        
+        public ushort[] Values;
     }
+    
 }

@@ -1,0 +1,15 @@
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\MODBUS.exe.config
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\MODBUS.exe
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\MODBUS.pdb
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\CT_TCPIP_Control.dll
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\CT_TCPIP_Library.dll
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\CT_TCPIP_Control.pdb
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\bin\Debug\CT_TCPIP_Library.pdb
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS_0304.csprojAssemblyReference.cache
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS.Form1.resources
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS.Properties.Resources.resources
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS_0304.csproj.GenerateResource.cache
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS_0304.csproj.CoreCompileInputs.cache
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS_0304.csproj.CopyComplete
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS.exe
+C:\Users\lisam\OneDrive\DEMO\TCPIP_DEMO\MODBUS\obj\Debug\MODBUS.pdb

@@ -92,13 +92,13 @@ namespace MODBUS
             ModbusHead md = t.BytesToStruct<ModbusHead>(headByte,Endianness.BigEndian);
             switch (md.FunctionCode)
             {
-                case 03:
-                    label5.Text += "FUNCTION 03 ";
-                    Response03(content);
+                case 03:                    
+                    Response03 rc3 =  Response03(content);
+                    showR3(rc3, 3);
                     break;
                 case 04:
-                    label5.Text += "FUNCTION 04 ";
-                    Response03(content);
+                    Response03 rc4 = Response03(content);
+                    showR3(rc4, 4);
                     break;
                 default:
 
@@ -107,20 +107,36 @@ namespace MODBUS
             }
           
         }
-        private void Response03(byte[] content)
+        private Response03 Response03(byte[] content)
         {
-            ushort len = (ushort) content[0];
-            if (content.Length != len +1 )
+            Response03 r = new Response03();
+            r.Len  =  content[0];
+            if (content.Length != r.Len +1 )
             {
-                label5.Text += Environment.NewLine;
-                MessageBox.Show("ERROR");
+                r.Len = 0;
+                return r;
             }
-            label5.Text += "REVICE　：";
+            r.Values = new ushort[r.Len / 2];          
             for (int i = 1; i < content.Length; i += 2)
             {
                 byte[] c = new byte[] { content[i+1], content[i] };
                 ushort ss = BitConverter .ToUInt16(c, 0);
-                label5.Text += ss.ToString() + " ";
+                r.Values[i / 2] = ss;                
+            }          
+            return r;
+        }
+        private void showR3(Response03 r , ushort funcode)
+        {
+            label5.Text += "REVICE　FUNCTION  : " + funcode.ToString ();
+            if ( r.Len == 0)
+            {
+                label5.Text += Environment.NewLine;
+                MessageBox.Show("NO DATA");
+            }
+            label5.Text += "   DATA  : ";
+            foreach (ushort r1 in r.Values)
+            {
+                label5.Text += r1.ToString() + " ";
             }
             label5.Text += Environment.NewLine;
         }
