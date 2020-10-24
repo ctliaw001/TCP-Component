@@ -10,7 +10,7 @@ Easy to Use TCP Component</br>
 介面響應不佳且無法達到多使用者連結，全程使用非同步傳送是較好的選擇。基於上述兩個問題，筆者已將TCP 程序包裝成元件，
 且將回傳值，拉回了使用者介面執行緒。這使得使用TCP IP 就像使用 Windows Form 中的 Button 一樣簡單。
 TCP IP 的另一個課題是，高於第三層的通訊協定，往往是一個head struct，與複雜的內容Struct，而TCP IP 傳送的是 BYTE[]，
-未來也會提供將 Struct' byte[] 互轉的函數，使用者將不在需要了解 typeof 等技術，而可以傳送高於第三層的網路協定。</br>
+未來也會提供將 Struct， byte[] 互轉的函數，使用者將不在需要了解 typeof 等技術，而可以傳送高於第三層的網路協定。</br>
 &nbsp;&nbsp;&nbsp;&nbsp; Writing a TCP IP communication program is not friendly for novices. Even experienced programmers,
 For the constant need to declare delegate, event, and Invoke, CallBack, Async, etc., it will also
 feeled impatient, so many predecessors have written brilliant TCP Models, which can lower the entry barrier and eliminate the need to deal with complicated Callback procedures.
