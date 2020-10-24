@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,15 +11,15 @@ namespace TCP_Server_Console
     class Program
     {
         
-       static CT_TCPIP_Library.TCP_Server  server = new CT_TCPIP_Library.TCP_Server();    
+        static CT_TCPIP_Library.TCP_Server  server = new CT_TCPIP_Library.TCP_Server();  
+         
         static void Main(string[] args)
         {
             
             server.Connected += Server_Connected;
             server.ReviceBuffer += Server_ReviceBuffer;
             server.Port = 10022;
-            server.IP = "127.0.0.1";
-            server.HelloMessage =  Encoding.ASCII.GetBytes("Connected");
+            server.IP = "127.0.0.1";          
             server.Start();            
             Console.WriteLine("Server Start :" + server.IP + ":" + server.Port.ToString());
             Console.WriteLine("Wait Client Connection");
@@ -54,7 +55,11 @@ namespace TCP_Server_Console
                         break;
                     case "send":
                         Send();
-                        break;                     
+                        break;
+                    case "":
+                        //Console.WriteLine("");
+                        break;
+
                     default:
                         Console.WriteLine("Unknow");
                         break;
@@ -65,14 +70,15 @@ namespace TCP_Server_Console
 
         private static byte[] Server_ReviceBuffer(byte[] buffers,int size, string IP,int Counter, int requestNo)
         {
-            string rc = System.Text.Encoding.UTF8.GetString(buffers,0,size).Trim().Replace("\0","");
+             string rc = System.Text.Encoding.UTF8.GetString(buffers,0,size).Trim().Replace("\0","");
+            //string rc = System.Text.Encoding.ASCII.GetString(buffers, 0, size).Trim().Replace("\0", "");
             if (rc == "HELLO")
             {
                 return Encoding.ASCII.GetBytes("HELLO " + IP + " ; " + Counter.ToString() + " ; " + requestNo.ToString());
             }
             else
             {
-                return Encoding.ASCII.GetBytes("Unknow Commend." + IP + " ; " + Counter.ToString() + " ; " + requestNo.ToString());
+                return Encoding.ASCII.GetBytes("Unknow Commend." + IP + " ; " + Counter.ToString() + " ; " + requestNo.ToString() + ":" );
             }
         }
 
@@ -83,9 +89,9 @@ namespace TCP_Server_Console
         }
         private static void ShowClinetList()
         {
-            foreach( string ip in server.clientIP)
+            foreach( TcpClient c  in server.clientArray)
             {
-                Console.WriteLine(ip);
+                Console.WriteLine(c.Client.RemoteEndPoint.ToString());
             }
         }
         private static void ShowHelp()

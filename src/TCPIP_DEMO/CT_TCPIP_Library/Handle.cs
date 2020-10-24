@@ -65,12 +65,5 @@ namespace CT_TCPIP_Library
     }
       
     
-    public class ReadBuff
-    {
-        public string IP;
-        public int Count;
-        public int  requestCount;
-        public NetworkStream networkStream;
-        public byte[] buffer;
-    }
+  
 }

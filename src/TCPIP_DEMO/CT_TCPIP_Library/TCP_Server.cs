@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define  core 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -27,9 +28,10 @@ namespace CT_TCPIP_Library
         }
         public string IP = "127.0.0.1";
         public byte[] HelloMessage;
-        private int counter = 0;
-        public List<string> clientIP = new List<string>();
+        private int counter = 0;        
         public List<TcpClient> clientArray = new List<TcpClient>();
+        
+
         public void Start()
         {
             TcpListener listener = new TcpListener(System.Net.IPAddress.Parse(IP), _port);
@@ -47,7 +49,7 @@ namespace CT_TCPIP_Library
                 client.ReceiveBufferSize = 1024;
                 client.SendBufferSize = 1024;
                 string ads = client.Client.RemoteEndPoint.ToString();
-                clientIP.Add(ads);
+               
                 clientArray.Add(client);
                 ++counter;                
                 if (Connected != null)
@@ -58,9 +60,7 @@ namespace CT_TCPIP_Library
                 {
                     NetworkStream networkStream = client.GetStream();
                     networkStream.Write(HelloMessage, 0, HelloMessage.Length);
-                }
-                byte[] aa = new byte[1024];
-                
+                }                               
                 Handle handle = new Handle();
                 handle.ReviceBuffers += Handle_ReviceBuffers;
                 handle.DisConnected += Handle_DisConnected;
@@ -75,9 +75,8 @@ namespace CT_TCPIP_Library
 
         private void Handle_DisConnected(object sender, EventArgs e)
         {
-            
-            clientIP.Remove((string)sender);
             string ip = (string)sender;
+#if core           
             foreach (TcpClient c in clientArray)
             {
                 if (c.Client.RemoteEndPoint.ToString() == ip)
@@ -86,6 +85,13 @@ namespace CT_TCPIP_Library
                     break;
                 }
             }
+#else
+            //lineq can not use in core 
+            TcpClient r = clientArray
+                          .Where(c => c.Client.RemoteEndPoint.ToString() == ip)
+                          .Select(c => c).First();
+            clientArray.Remove(r);
+#endif
         }
 
         private byte[] Handle_ReviceBuffers(byte[] buffers, int size, string IP, int clineNo, int requestNo)
@@ -102,6 +108,7 @@ namespace CT_TCPIP_Library
         }
         public void SendMessage(string _ip, byte[] Send)
         {
+#if core
             foreach (TcpClient c in clientArray)
             {
                 if (c.Client.RemoteEndPoint.ToString() == _ip)
@@ -109,6 +116,17 @@ namespace CT_TCPIP_Library
                     c.GetStream().WriteAsync(Send, 0, Send.Length);
                 }
             }
+#else
+            //lineq can not use in core 
+            NetworkStream sender = clientArray
+                         .Where( c => c.Client.RemoteEndPoint.ToString() == _ip)
+                         .Select  (c => c.GetStream()).First() ;                        
+            //NetworkStream sender = (from c in clientArray
+            //                         where (c.Client.RemoteEndPoint.ToString() == _ip)
+            //                         select ( c.GetStream())).First();
+            sender.WriteAsync(Send, 0, Send.Length);
+#endif
         }
     }
 }
+            

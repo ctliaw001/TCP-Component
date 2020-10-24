@@ -157,7 +157,14 @@ namespace CT_TCPIP_Library
         public void Close()
         {
             Connected = false;
-            client.Close();
+            try
+            {
+                client.Close();
+            }
+            catch
+            {
+
+            }
         }
     }
 }

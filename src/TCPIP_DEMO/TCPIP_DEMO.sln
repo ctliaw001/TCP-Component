@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Server_Console", "TCP_S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_SERVER", "TCP_SERVER\TCP_SERVER.csproj", "{A7BC94C8-7906-4EA1-9678-028DC2659A92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODBUS_0304", "MODBUS\MODBUS_0304.csproj", "{B909D803-2CAB-4C20-8236-BEF9288F1086}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A7BC94C8-7906-4EA1-9678-028DC2659A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7BC94C8-7906-4EA1-9678-028DC2659A92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7BC94C8-7906-4EA1-9678-028DC2659A92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B909D803-2CAB-4C20-8236-BEF9288F1086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B909D803-2CAB-4C20-8236-BEF9288F1086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B909D803-2CAB-4C20-8236-BEF9288F1086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B909D803-2CAB-4C20-8236-BEF9288F1086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,45 +7,96 @@ using System.Threading.Tasks;
 
 namespace CT_TCPIP_Library
 {
-    class Tools
+    public enum Endianness
     {
-        public byte[] StructToBytes(object obj)
+        BigEndian,
+        LittleEndian
+    }
+    public  class Tools
+    {
+        //this page source code from https://stackoverflow.com/users/82187/adam-robinson
+    
+        public T BytesToStruct<T>(byte[] rawData, Endianness endianness) where T : struct
         {
-            int rawsize = Marshal.SizeOf(obj);
-            IntPtr buffer = Marshal.AllocHGlobal(rawsize);
-            Marshal.StructureToPtr(obj, buffer, false);
-            byte[] rawdatas = new byte[rawsize];
-            Marshal.Copy(buffer, rawdatas, 0, rawsize);
-            Marshal.FreeHGlobal(buffer);
-            return rawdatas;
+            T result = default(T);
+
+            MaybeAdjustEndianness(typeof(T), rawData, endianness);
+
+            GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
+
+            try
+            {
+                IntPtr rawDataPtr = handle.AddrOfPinnedObject();
+                result = (T)Marshal.PtrToStructure(rawDataPtr, typeof(T));
+            }
+            finally
+            {
+                handle.Free();
+            }
+
+            return result;
         }
 
-        public object BytesToStruct(byte[] buf, int len, Type type)
+        public byte[] StructToBytes<T>(T data, Endianness endianness) where T : struct
         {
-            object rtn;
-            IntPtr buffer = Marshal.AllocHGlobal(len);
-            Marshal.Copy(buf, 0, buffer, len);
-            rtn = Marshal.PtrToStructure(buffer, type);
-            Marshal.FreeHGlobal(buffer);
-            return rtn;
-        }
+            byte[] rawData = new byte[Marshal.SizeOf(data)];
+            GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
+            try
+            {
+                IntPtr rawDataPtr = handle.AddrOfPinnedObject();
+                Marshal.StructureToPtr(data, rawDataPtr, false);
+            }
+            finally
+            {
+                handle.Free();
+            }
 
-        public void BytesToStruct(byte[] buf, int len, object rtn)
-        {
-            IntPtr buffer = Marshal.AllocHGlobal(len);
-            Marshal.Copy(buf, 0, buffer, len);
-            Marshal.PtrToStructure(buffer, rtn);
-            Marshal.FreeHGlobal(buffer);
-        }
+            MaybeAdjustEndianness(typeof(T), rawData, endianness);
 
-        public void BytesToStruct(byte[] buf, object rtn)
-        {
-            BytesToStruct(buf, buf.Length, rtn);
+            return rawData;
         }
-
-        public object BytesToStruct(byte[] buf, Type type)
+        private static void MaybeAdjustEndianness(Type type, byte[] data, Endianness endianness, int startOffset = 0)
         {
-            return BytesToStruct(buf, buf.Length, type);
+            if ((BitConverter.IsLittleEndian) == (endianness == Endianness.LittleEndian))
+            {
+                // nothing to change => return
+                return;
+            }
+
+            foreach (var field in type.GetFields())
+            {
+                var fieldType = field.FieldType;
+                if (field.IsStatic)
+                    // don't process static fields
+                    continue;
+
+                if (fieldType == typeof(string))
+                    // don't swap bytes for strings
+                    continue;
+                if (fieldType == typeof(byte))
+                    // don't swap bytes for strings
+                    continue;
+                var offset = Marshal.OffsetOf(type, field.Name).ToInt32();
+
+                // handle enums
+                if (fieldType.IsEnum)
+                    fieldType = Enum.GetUnderlyingType(fieldType);
+
+                // check for sub-fields to recurse if necessary
+                var subFields = fieldType.GetFields().Where(subField => subField.IsStatic == false).ToArray();
+
+                var effectiveOffset = startOffset + offset;
+
+                if (subFields.Length == 0)
+                {
+                    Array.Reverse(data, effectiveOffset, Marshal.SizeOf(fieldType));
+                }
+                else
+                {
+                    // recurse
+                    MaybeAdjustEndianness(fieldType, data, endianness, effectiveOffset);
+                }
+            }
         }
     }
 }
